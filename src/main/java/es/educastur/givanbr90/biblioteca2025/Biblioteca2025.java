@@ -982,4 +982,43 @@ public class Biblioteca2025 {
         return pos;
 
     }
+    
+    public static boolean esInt (String s){
+        double n;
+        try {
+            n=Integer.parseInt(s);
+            return true;
+            
+        } catch (Exception e) {
+        }
+        return false;
+        
+    }
+    
+    public static boolean validarDni (String dni){
+       //Verificar que el DNI tiene un formato válido
+       if (dni.isBlank() || !dni.matches("\\d{8} [A-HJ-NP-TV-Z]")){ //Expresión regular de un DNI, 8 números y solo las letras elegidas
+           return false;
+       }
+       
+       //Extraer el número y la letra del DNI
+       String numeroStr = dni.substring(0,8);
+       char letra = dni.charAt(8);
+       
+       //Calcular la letra correspondiente al número del DNI
+       char letraCalculada = calcularLetraDni (Integer.parseInt(numeroStr));
+       
+       //COmparar la letra calculada con la letra proporcionada y devolver el resultado de la comparación TRUE/FALSE
+       
+        return letra == letraCalculada;
+       
+    }
+    
+    public static char calcularLetraDni (int numero){
+        
+        return 0;
+        
+    }
+    
+        
 }
