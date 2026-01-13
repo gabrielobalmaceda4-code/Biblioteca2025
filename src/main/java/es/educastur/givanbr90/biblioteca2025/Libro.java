@@ -65,7 +65,7 @@ public class Libro {
 
     @Override
     public String toString() {
-        return isbn + "/ " + titulo + "/ " + autor + "/ " + genero + "/ " + ejemplares;
+        return isbn + " | " + titulo + " | " + autor + " | " + genero + " | ejemplares:" + ejemplares;
         
     }
     
