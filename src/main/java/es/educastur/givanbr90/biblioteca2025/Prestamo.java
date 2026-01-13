@@ -58,8 +58,12 @@ public class Prestamo {
 
     @Override
     public String toString() {
-        return libroPrest + "/" + usuarioPrest + "/" + fechaPrest + "/" + fechaDev;
+        return libroPrest + " | " + usuarioPrest + " | " + fechaPrest + " | " + fechaDev;
 
+    }
+
+    Object getMonth() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
