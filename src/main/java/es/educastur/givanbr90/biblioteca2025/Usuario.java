@@ -68,7 +68,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return dni + "\t" + nombre + "\t" + email + "\t" + telefono;
+        return dni + "-" + nombre + "-" + email + "-" + telefono;
         
     }
     
