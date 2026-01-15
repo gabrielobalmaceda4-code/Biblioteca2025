@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * @author 1dawd17
  */
 public class Biblioteca2025 {
-
+    
     private static Scanner sc = new Scanner(System.in);
     private static ArrayList<Libro> libros = new ArrayList();//Declaración del ArrayList
     private static ArrayList<Usuario> usuarios = new ArrayList();
@@ -23,21 +23,25 @@ public class Biblioteca2025 {
     private static final ArrayList<Prestamo> prestamosHist = new ArrayList();
     //Lo ideal es que dentro del diamante esté en singular y el nombre en plural. Es decir <Libro> que representa la class/objeto, y libros de cada uno de los libros
     private static String isbn;
-
+    
     public static void main(String[] args) {
+        //FCOM+tab crea el editor para crear tags que permiten plegar y desplegar metodos
 
         cargaDatos();//Llama al método que carga 10 libros en la colección y añadir uno nuevo
-        //FCOM+tab crea el editor para crear tags que permiten plegar y desplegar metodos
         //<editor-fold defaultstate="collapsed" desc="Menus">
         menuOpciones();
         //</editor-fold>
         //buscaFecha();
+        listadosConStreams();
+
+        //<editor-fold defaultstate="collapsed" desc="Examen 12-12">
         //cargaDatosPrueba12();
         uno();
         dos();
         tres();
         cuatro();
         cinco();
+        //</editor-fold>
 
     }
 
@@ -52,14 +56,14 @@ public class Biblioteca2025 {
         libros.add(new Libro("1-77", "Olvidado Rey Gudu", "A.M.Matute", "Aventuras", 0));
         libros.add(new Libro("1-88", "El ultimo barco", "D.Villar", "Novela Negra", 3));
         libros.add(new Libro("1-99", "Ojos de agua", "D.Villar", "Novela Negra", 0));
-
+        
         usuarios.add(new Usuario("11", "Ana", "ana@email.com", "621111111"));
         usuarios.add(new Usuario("22", "David", "david@email.com", "622222222"));
         usuarios.add(new Usuario("33", "Bea", "bea@email.com", "623333333"));
         usuarios.add(new Usuario("44", "Lucas", "lucas@email.com", "624444444"));
         usuarios.add(new Usuario("55", "Carlota", "carlota@email.com", "625555555"));
         usuarios.add(new Usuario("66", "Juan", "juan@email.com", "626666666"));
-
+        
         LocalDate hoy = LocalDate.now(); //OBTENEMOS LA FECHA DE HOY CON EL MÉTODO now()
 
         //PRESTAMOS "NORMALES" REALIZADOS HOY Y QUE SE HAN DE DEVOLVER EN 15 DÍAS
@@ -83,7 +87,7 @@ public class Biblioteca2025 {
         prestamosHist.add(new Prestamo(libros.get(7), usuarios.get(2), hoy.minusDays(10), hoy));
         prestamosHist.add(new Prestamo(libros.get(6), usuarios.get(3), hoy.minusDays(10), hoy));
     }
-
+    
     public static void uno() {
         // EL DÍA 13-1-2026 SE APRENDE A HACER PUSH Y PULL CON EL GITHUB
         /*
@@ -182,7 +186,7 @@ public class Biblioteca2025 {
         }*/
         System.out.println("");
     }
-
+    
     public static void dos() {
         System.out.println("Vamos a buscar libros que no hayan sido prestados nunca");
         for (Libro l : libros) {
@@ -203,7 +207,7 @@ public class Biblioteca2025 {
                         cont++;
                         break;
                     }
-
+                    
                 }
             }
             if (cont == 0) {//Mostramos solo los libros que no tienen ni prestamos activos ni históricos
@@ -211,9 +215,9 @@ public class Biblioteca2025 {
             }
         }
     }
-
+    
     public static void tres() {
-
+        
         System.out.print("\n\nVamos a listar usuarios con prestamos activos: " + "\n");//Las variables que vamos a declarar es mejor llamarlas igual que los atributos de la clase para evitar la confusión
         //Corrección
         System.out.println("Usuarios que tiene al menos 1 prestamo ACTIVO:");
@@ -281,7 +285,7 @@ public class Biblioteca2025 {
         HABÍA REPETICIÓN DE USUARIOS
          */
     }
-
+    
     public static void cuatro() {
         /* Se podría resolver con un contador (cont) al igual que los ejercicios
             anteriores, pero en este caso utilizamos una variable booleana (true/false).
@@ -312,7 +316,7 @@ public class Biblioteca2025 {
         }
         System.out.println(usuarios);*/
     }
-
+    
     public static void cinco() {
         //Corrección
         System.out.println("PRESTAMOS realizados en el mes de NOVIEMBRE:\n");
@@ -364,18 +368,18 @@ public class Biblioteca2025 {
         libros.add(new Libro("1-33", "El Medico", "N. Gordon", "Aventuras", 4));
         libros.add(new Libro("1-44", "Chaman", "N. Gordon", "Aventuras", 3));
         libros.add(new Libro("1-55", "Momo", "M. Ende", "Aventuras", 2));
-        libros.add(new Libro("1-66", "Paraiso inhabitado", "A.M.Matute", "Aventuras", 2));
-        libros.add(new Libro("1-77", "Olvidado Rey Gudu", "A.M.Matute", "Aventuras", 0));
+        libros.add(new Libro("1-66", "Paraiso inhabitado", "A.M.Matute", "Novela", 2));
+        libros.add(new Libro("1-77", "Olvidado Rey Gudu", "A.M.Matute", "Novela", 0));
         libros.add(new Libro("1-88", "El ultimo barco", "D.Villar", "Novela Negra", 3));
         libros.add(new Libro("1-99", "Ojos de agua", "D.Villar", "Novela Negra", 0));
-
+        
         usuarios.add(new Usuario("11", "Ana", "ana@email.com", "621111111"));
         usuarios.add(new Usuario("22", "David", "david@email.com", "622222222"));
         usuarios.add(new Usuario("33", "Bea", "bea@email.com", "623333333"));
         usuarios.add(new Usuario("44", "Lucas", "lucas@email.com", "624444444"));
         usuarios.add(new Usuario("55", "Carlota", "carlota@email.com", "625555555"));
         usuarios.add(new Usuario("66", "Juan", "juan@email.com", "626666666"));
-
+        
         LocalDate hoy = LocalDate.now(); //OBTENEMOS LA FECHA DE HOY CON EL MÉTODO now()
 
         //PRESTAMOS "NORMALES" REALIZADOS HOY Y QUE SE HAN DE DEVOLVER EN 15 DÍAS
@@ -410,11 +414,12 @@ public class Biblioteca2025 {
             System.out.println("\t\t\t\t2 - GESTION DE USUARIOS");
             System.out.println("\t\t\t\t3 - GESTION DE PRESTAMOS");
             System.out.println("\t\t\t\t4 - LISTAR COLECCIONES");
+            System.out.println("\t\t\t\t5 - LISTAR COLECCIONES CON STREAMS");
             System.out.println("\t\t\t\t9 - SALIR");
             System.out.println("\t\t\t\t¿Qué opción quieres ejecurtar?");
-
+            
             opcion = sc.nextInt();
-
+            
             switch (opcion) {
                 case 1: {
                     gestionLibros();
@@ -432,9 +437,13 @@ public class Biblioteca2025 {
                     listarColecciones();
                     break;
                 }
-
+                case 5: {
+                    listadosConStreams();
+                    break;
+                }
+                
             }
-
+            
         } while (opcion != 9);
 
         /* Estamos creando un menú de opciones, dichas opciones son introducidas por teclado y están contenidas en los diferentes métodos para actualizar la información de la agenda
@@ -461,13 +470,13 @@ public class Biblioteca2025 {
             System.out.println("\t\t\t\t4 - ELIMINAR LIBRO");
             System.out.println("\t\t\t\t9 - SALIR");
             System.out.println("\t\t\t\t¿Qué opción quieres ejecurtar?");
-
+            
             opcion = sc.nextInt();
-
+            
             switch (opcion) {
                 case 1: {
                     nuevoLibro();
-
+                    
                     break;
                 }
                 case 2: {
@@ -482,13 +491,13 @@ public class Biblioteca2025 {
                     eliminarLibro();
                     break;
                 }
-
+                
             }
-
+            
         } while (opcion != 9);
         //</editor-fold>
     }
-
+    
     public static void nuevoLibro() {
         System.out.println("\n\nVamos a introducir un nuevo LIBRO mediante el teclado");//Las variables que vamos a declarar es mejor llamarlas igual que los atributos de la clase para evitar la confusión
         System.out.println("\n\nISBN del nuevo LIBRO: ");
@@ -504,14 +513,14 @@ public class Biblioteca2025 {
         libros.add(new Libro(isbn, titulo, autor, genero, ejemplares));//Solo se usa add para añadir un nuevo objeto
         System.out.println("Se ha añadido un nuevo Libro");
     }
-
+    
     public static void listarLibros() {
         System.out.println("\nVamos a listar los LIBROS actuales");
         for (Libro l : libros) {
             System.out.println(l);
         }
     }
-
+    
     public static int buscaLibro(String isbn) {//Enviamos el String nombre introducido por teclado y devuelve un entero
         //Primero debemos saber qué contacto hay que modificar (sus coordenadas)
         int pos = -1;// ponemos -1 por si no lo encontramos
@@ -535,7 +544,7 @@ public class Biblioteca2025 {
 
         //SI BUSCAMOS EL LIBRO POR TITULO DEBEMOS USAR titulo = sc.nextLine(); PORQUE RECOGE LA FRASE ENTERA, next(); SOLO RECOGE UNA PALABRA
     }
-
+    
     public static void modificarLibro() {
         System.out.println("\nTeclea el ISBN del LIBRO a MODIFICAR: ");
 
@@ -544,20 +553,20 @@ public class Biblioteca2025 {
 
         //Declaramos variables para llamar al método de buscaContacto asociado a los atributos para simplificar el código y poder modificarlos
         int n = buscaLibro(isbn);
-
+        
         if (n == -1) {//Buscamos la posición del contacto del que queremos modificar un atributo, empezamos desde -1 por si el contacto no existe
             System.out.println("Este LIBRO no existe en la biblioteca");
         } else {
-
+            
             System.out.println("\nVamos a MODIFICAR un LIBRO mediante el teclado");//Las variables que vamos a declarar es mejor llamarlas igual que los atributos de la clase para evitar la confusión
             System.out.print("\n\nEJEMPLARES nuevos del LIBRO: ");
             int ejemplares = sc.nextInt();
             libros.get(n).setEjemplares(ejemplares);
             System.out.println("Los EJEMPLARES del libro se han actualizado");
-
+            
         }
     }
-
+    
     public static void eliminarLibro() {
         System.out.print("\nTeclea el ISBN del LIBRO a borrar: ");
         String isbn = sc.next();
@@ -584,9 +593,9 @@ public class Biblioteca2025 {
             System.out.println("\t\t\t\t4 - ELIMINAR USUARIO");
             System.out.println("\t\t\t\t12 - SALIR");
             System.out.println("\t\t\t\t¿Qué opción quieres ejecurtar?");
-
+            
             opcion = sc.nextInt();
-
+            
             switch (opcion) {
                 case 1: {
                     nuevoUsuario();
@@ -604,13 +613,13 @@ public class Biblioteca2025 {
                     eliminarUsuario();
                     break;
                 }
-
+                
             }
-
+            
         } while (opcion != 12);
         //</editor-fold>
     }
-
+    
     public static void nuevoUsuario() {
         System.out.println("\n\nVamos a introducir un nuevo USUARIO mediante el teclado");//Las variables que vamos a declarar es mejor llamarlas igual que los atributos de la clase para evitar la confusión
         System.out.println("\n\nDNI del nuevo USUARIO: ");
@@ -625,14 +634,14 @@ public class Biblioteca2025 {
 
         System.out.println("Se ha añadino un nuevo usuario");
     }
-
+    
     public static void listarUsuarios() {
         System.out.println("\nVamos a listar los USUARIOS actuales");
         for (Usuario u : usuarios) {
             System.out.println(u);
         }
     }
-
+    
     public static int buscaUsuario(String dni) {//Enviamos el String nombre introducido por teclado y devuelve un entero
         //ES MEJOR BUSCARLO CON UN BUCLE FOR
 
@@ -659,7 +668,7 @@ public class Biblioteca2025 {
         //SI BUSCAMOS EL LIBRO POR TITULO DEBEMOS USAR titulo = sc.nextLine(); PORQUE RECOGE LA FRASE ENTERA, next(); SOLO RECOGE UNA PALABRA
         // ES MEJOR HAVER CON UN BUCLE FOR PORQUE NOS CONTROLA MEJOR LA DIRECCIÓN DE MEMORIA EXACTA COMO HIZO EDU, BUSCAMOS UNA POSICIÓN i
     }
-
+    
     public static void modificarUsuario() {
         System.out.println("\nTeclea el DNI del USUARIO a MODIFICAR: ");
 
@@ -668,11 +677,11 @@ public class Biblioteca2025 {
 
         //Declaramos variables para llamar al método de buscaContacto asociado a los atributos para simplificar el código y poder modificarlos
         int n = buscaUsuario(dni);
-
+        
         if (n == -1) {//Buscamos la posición del contacto del que queremos modificar un atributo, empezamos desde -1 por si el contacto no existe
             System.out.println("Este USUARIO no existe en la biblioteca");
         } else {
-
+            
             System.out.println("\nVamos a MODIFICAR un USUARIO mediante el teclado");//Las variables que vamos a declarar es mejor llamarlas igual que los atributos de la clase para evitar la confusión
             System.out.print("\n\nNombre nuevo del Usuario: ");
             String nombre = sc.next();
@@ -684,10 +693,10 @@ public class Biblioteca2025 {
             usuarios.get(n).setEmail(email);
             usuarios.get(n).setTelefono(telefono);
             System.out.println("El contacto ha sido actualizado");
-
+            
         }
     }
-
+    
     public static void eliminarUsuario() {
         System.out.print("\nTeclea el DNI del USUARIO a borrar: ");
         String dni = sc.next();
@@ -712,9 +721,9 @@ public class Biblioteca2025 {
             System.out.println("\t\t\t\t4 - DEVOLUCION");
             System.out.println("\t\t\t\t9 - SALIR");
             System.out.println("\t\t\t\t¿Qué opción quieres ejecurtar?");
-
+            
             opcion = sc.nextInt();
-
+            
             switch (opcion) {
                 case 1: {
                     nuevoPrestamo();
@@ -731,12 +740,12 @@ public class Biblioteca2025 {
                 case 4: {
                     devolucion();
                 }
-
+                
             }
-
+            
         } while (opcion != 9);
     }
-
+    
     public static void listarPrestamos() {
 
         //Debemos hacer un listado de libros que están fuera de plazo en la devolución
@@ -745,13 +754,13 @@ public class Biblioteca2025 {
         System.out.println("\nPrestamos activos fuera de plazo: ");
         for (Prestamo p : prestamos) {
             if (p.getFechaDev().isBefore(LocalDate.now())) {
-
+                
                 System.out.println(p);
             }
         }
         System.out.println("Multa de 1 mes sin prestamos");
         System.out.println("");
-
+        
         System.out.println("Prestamos activos y en plazo");
 
         //Este es un poco más complicado, podemos hacerlo copiando y pegando el codigo de arriba y negamos la condición de if con !
@@ -767,19 +776,22 @@ public class Biblioteca2025 {
                 System.out.println(p);
             }
         }
-
+        
         System.out.println("\nVamos a listar el HISTORICO DE PRESTAMOS");
         for (Prestamo p : prestamosHist) {
             System.out.println(p);
         }
-
+        
         System.out.println("\nVamos a listar todos los PRESTAMOS: ");
         for (Prestamo p : prestamos) {
             System.out.println(p);
         }
     }
-
+    
     public static void nuevoPrestamo() {
+
+        /*  Este método se debe modificar con lo de edu llamando a la calse !MetodosAuxiliares.validarDNI(dni)
+            El código actual es muy sencillo y puede dar lugar a errores    */
         System.out.println("Identificación del usuario:");
         String dni = sc.next();//Con el sc. no hay niguna validación y puede meter información que ni es correcta
         int posUsuario = buscaUsuario(dni);//Más adelante debemos poner DNI correcto que requiere una validación porque muchas cosas están sujetas a formatos, si no no avanzas
@@ -801,7 +813,7 @@ public class Biblioteca2025 {
                 System.out.println(ex.getMessage());
             }
             try {
-
+                
             } catch (Exception e) {
             }
         }
@@ -861,7 +873,7 @@ public class Biblioteca2025 {
             
         }*/
     }
-
+    
     public static int buscaPrestamo(String dni, String isbn) {
         int pos = -1;
         for (int i = 0; i < prestamos.size(); i++) {
@@ -875,9 +887,9 @@ public class Biblioteca2025 {
             }
         }
         return pos;
-
+        
     }
-
+    
     public static void prorroga() {
         //Hay que tener en cuenta qué atributo se pide primero para evitar errores
         System.out.println("DNI  del usuario: ");
@@ -892,7 +904,7 @@ public class Biblioteca2025 {
             System.out.println("Se amplia el plazo a");
         }
     }
-
+    
     public static void devolucion() {
 
         //Debemos declarar un nuevo arrayList de historial de prestamos
@@ -923,20 +935,76 @@ public class Biblioteca2025 {
             //System.out.print("\n" + l.getIsbn() + "/" + l.getTitulo() + "/" + l.getAutor() + "/" + l.getGenero());
         }
         System.out.println("");
-
+        
         System.out.println("Vamos a mostrar los usuarios de la biblioteca: ");
         for (Usuario u : usuarios) {
             System.out.println(u);
             //System.out.print("\n" + u.getDni() + "/" + u.getNombre() + "/" + u.getEmail() + "/" + u.getTelefono());
         }
         System.out.println("");
-
+        
         System.out.println("Vamos a mostrar los prestamos de la biblioteca: ");
         for (Prestamo p : prestamos) {
             System.out.println(p);
         }
     }
+    
+    public static void listadosConStreams() {
+        System.out.println("Libros listados desde STREAMS: ");
+        libros.stream()//Hacemos un duplicado de la colección de libros a Stream
+                .forEach(l -> System.out.println(l));//Estamos haciendo el bucle ForEcah en una solo línea
 
+        System.out.println("\nUsuarios listados desde un STREAM: ");
+        usuarios.stream()
+                .forEach(u -> System.out.println(u));
+        
+        System.out.println("\nPrestamos listados desde un STREAM: ");
+        prestamos.stream()
+                .forEach(p -> System.out.println(p));
+
+        //Listados selectivos (filter) con STREAM, primero hay que hacer el filter antes que el for each para evitar que el programa recorra toda la colección de forma innecesaria
+        System.out.println("\nListado de libros con filtros: ");
+        libros.stream()
+                .filter(l -> l.getGenero().equalsIgnoreCase("novela negra")//Aplicamos el filtro para solo buscar aquellos que pertenecen al género que buscamos
+                //&& l.getGenero().equalsIgnoreCase("aventuras")En este caso no hay ningún libro que sea de novela negra  "y" aventuras el && pide que se cumplan ambas condiciones, por lo tanto debemos poner un "o"
+                || l.getGenero().equalsIgnoreCase("aventuras")
+                || l.getAutor().equalsIgnoreCase("jrr tolkien"))//Podemos agregar más de un filtro poniendo && = nos muestra ambas condiciones, podemos cambiar la condición con un "o" = || este género o este autor
+                //Para mezclar condiciones debemos encerrar estas condiciones en paréntesis aquellas que queremos que estén asociadas
+                .forEach(l -> System.out.println(l));//Imprime aquellos libros que solo pertenecen al filtro aplicado anteriormente
+
+        System.out.println("\nPrestamos fuera de plazo: ");
+        prestamos.stream().filter(p -> p.getFechaDev().isBefore(LocalDate.now()))
+                .forEach(p -> System.out.println(p));
+        
+        System.out.println("\nPrestamos activos y no activos del usuario (teclear NOMBRE): ");
+        //Hay que hacer 2 STREAM, uno para los prestamos y otro para prestamosHist, el nombre introducido por teclado debe estar antes para que lo asocie directamente a estos 2 streams
+
+        String nombre = sc.next();
+        System.out.println("\nPrestamos activos del usuario: ");
+        prestamos.stream().filter(p -> p.getUsuarioPrest().getNombre().equalsIgnoreCase(nombre))
+                .forEach(p -> System.out.println(p));
+        
+        System.out.println("\nPrestamos no activos del usuario: ");
+        prestamosHist.stream().filter(p -> p.getUsuarioPrest().getNombre().equalsIgnoreCase(nombre))
+                .forEach(p -> System.out.println(p));
+        
+        System.out.println("\nPrestamos fuera de plazo del usuario: ");
+        prestamos.stream().filter(p -> p.getUsuarioPrest().getNombre().equalsIgnoreCase(nombre)
+                && p.getFechaDev().isBefore(LocalDate.now()))//Le agregamos una condición más al primer ejemplo del usuario
+                .forEach(p -> System.out.println(p));
+        
+        System.out.println("\nPrestamos activos de libros del genero aventuras: ");
+        prestamos.stream().filter(p -> p.getLibroPrest().getGenero().equalsIgnoreCase("aventuras"))
+                .forEach(p -> System.out.println(p));
+
+        /*Forma tradicional
+        for (Libro l : libros) {
+            if (l.getGenero().equalsIgnoreCase("aventuras")) {
+                
+            }
+        }*/
+    }
+    
     public static int buscaFecha(LocalDate fecha) {
         int pos = -1;
         int i = 0;
@@ -948,7 +1016,7 @@ public class Biblioteca2025 {
             i++;
         }
         return pos;
-
+        
     }
 
     /**
@@ -972,7 +1040,7 @@ public class Biblioteca2025 {
             for (Prestamo p : prestamos) {
                 if (p.getLibroPrest().getIsbn().equals(isbn)) {
                     cadena = cadena + "\n + " + p.getFechaDev();
-
+                    
                 }
             }
             throw new LibroNoDisponible(cadena);
@@ -980,86 +1048,7 @@ public class Biblioteca2025 {
             //FORMA SENCILLA ->  throw new LibroNoDisponible("El libro no se encuentra disponible, todos sus ejemplares están en préstamo");
         }
         return pos;
-
-    }
-
-    public static boolean esInt(String s) {
-        double n;
-        try {
-            n = Integer.parseInt(s);
-            return true;
-
-        } catch (NumberFormatException ex) {
-            return false;
-        }
-
-    }
-
-    public static boolean esDouble(String s) {
-        double n;
-        try {
-            n = Double.parseDouble(s);
-            return true;
-        } catch (NumberFormatException ex) {
-            return false;
-        }
-    }
-
-    /* EJEMPLOS DE UTILIZACION esInt() y esDouble() :
         
-        //INTRODUCIR LAS EXISTENCIAS DE UN LIBRO EN UNA VARIABLE DE TIPO INT
-        String exT;
-	do {          
-            System.out.println("EXISTENCIAS:");
-            exT=sc.next(); //Se lee la entrada de EXISTENCIAS como un String
-        } while(!esInt(exT)); //Se sigue pidiendo la entrada si no es int
-        
-        // INTRODUCIR EL PVP DE UN ARTÍCULO EN UNA VARIABLE DE TIPO DOUBLE
-        String pvpT;
-	do {          
-            System.out.println("PVP:");
-            pvpT=sc.next(); //Se lee la entrada del PVP como un String
-        } while(!esDouble(pvpT)); /
-     */
-    public static boolean validarDni(String dni) {
-        //Verificar que el DNI tiene un formato válido
-        if (dni.isBlank() || !dni.matches("\\d{8} [A-HJ-NP-TV-Z]")) { //Expresión regular de un DNI, 8 números y solo las letras elegidas
-            return false;
-        }
-
-        //Extraer el número y la letra del DNI
-        String numeroStr = dni.substring(0, 8);
-        char letra = dni.charAt(8);
-
-        //Calcular la letra correspondiente al número del DNI
-        char letraCalculada = calcularLetraDni(Integer.parseInt(numeroStr));
-
-        //Comparar la letra calculada con la letra proporcionada y devolver el resultado de la comparación TRUE/FALSE
-        // el resultado de la comparación TRUE/FALSE
-        return letra == letraCalculada;
-
-        /* devuelve TRUE si la letra del DNI y la calculada según la fórmula COINCIDEN 
-        SE PUEDE DEVOLVER ASI EL RESULTADO DE UNA COMPARACIÓN. Se devuelve TRUE si la comparación
-        se cumple y FALSE sino. Es equivalente a poner:
-          if (letra == letraCalculada) {
-              return TRUE;
-           } else {
-              return FALSE;   
-           }
-         */
     }
-
-    public static char calcularLetraDni(int numero) {
-        String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
-        return letras.charAt(numero % 23);
-    }
-
-    /* EJEMPLO DE UTILIZACIÓN validarDNI()
-        
-        do{
-            System.out.println("DNI CLIENTE:");
-            dniT=sc.nextLine().toUpperCase();
-        }while (!validarDNI(dniT));
-    /*
-
-     }
+    
+}
