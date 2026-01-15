@@ -791,10 +791,10 @@ public class Biblioteca2025 {
             try {
                 //Recogemos posición
                 int pos = stockLibro(isbn);//El IDE nos está avisando los errores que pueden pasar, los throw, si le damos a las primeras sugerencias del IDE no es una solución, le pasamos el marrón a este método, lo rodeamos de try catch
-                
-                LocalDate hoy=LocalDate.now();
-                prestamos.add(new Prestamo(libros.get(pos),usuarios.get(posUsuario), hoy,hoy.plusDays(15)));
-                libros.get(pos).setEjemplares(libros.get(pos).getEjemplares()-1);
+
+                LocalDate hoy = LocalDate.now();
+                prestamos.add(new Prestamo(libros.get(pos), usuarios.get(posUsuario), hoy, hoy.plusDays(15)));
+                libros.get(pos).setEjemplares(libros.get(pos).getEjemplares() - 1);
             } catch (LibroNoExiste ex) {
                 System.out.println(ex.getMessage());
             } catch (LibroNoDisponible ex) {
@@ -948,7 +948,7 @@ public class Biblioteca2025 {
             i++;
         }
         return pos;
-        
+
     }
 
     /**
@@ -976,49 +976,90 @@ public class Biblioteca2025 {
                 }
             }
             throw new LibroNoDisponible(cadena);
-            
+
             //FORMA SENCILLA ->  throw new LibroNoDisponible("El libro no se encuentra disponible, todos sus ejemplares están en préstamo");
         }
         return pos;
 
     }
-    
-    public static boolean esInt (String s){
+
+    public static boolean esInt(String s) {
         double n;
         try {
-            n=Integer.parseInt(s);
+            n = Integer.parseInt(s);
             return true;
-            
-        } catch (Exception e) {
+
+        } catch (NumberFormatException ex) {
+            return false;
         }
-        return false;
-        
+
     }
-    
-    public static boolean validarDni (String dni){
-       //Verificar que el DNI tiene un formato válido
-       if (dni.isBlank() || !dni.matches("\\d{8} [A-HJ-NP-TV-Z]")){ //Expresión regular de un DNI, 8 números y solo las letras elegidas
-           return false;
-       }
-       
-       //Extraer el número y la letra del DNI
-       String numeroStr = dni.substring(0,8);
-       char letra = dni.charAt(8);
-       
-       //Calcular la letra correspondiente al número del DNI
-       char letraCalculada = calcularLetraDni (Integer.parseInt(numeroStr));
-       
-       //COmparar la letra calculada con la letra proporcionada y devolver el resultado de la comparación TRUE/FALSE
-       
+
+    public static boolean esDouble(String s) {
+        double n;
+        try {
+            n = Double.parseDouble(s);
+            return true;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+    }
+
+    /* EJEMPLOS DE UTILIZACION esInt() y esDouble() :
+        
+        //INTRODUCIR LAS EXISTENCIAS DE UN LIBRO EN UNA VARIABLE DE TIPO INT
+        String exT;
+	do {          
+            System.out.println("EXISTENCIAS:");
+            exT=sc.next(); //Se lee la entrada de EXISTENCIAS como un String
+        } while(!esInt(exT)); //Se sigue pidiendo la entrada si no es int
+        
+        // INTRODUCIR EL PVP DE UN ARTÍCULO EN UNA VARIABLE DE TIPO DOUBLE
+        String pvpT;
+	do {          
+            System.out.println("PVP:");
+            pvpT=sc.next(); //Se lee la entrada del PVP como un String
+        } while(!esDouble(pvpT)); /
+     */
+    public static boolean validarDni(String dni) {
+        //Verificar que el DNI tiene un formato válido
+        if (dni.isBlank() || !dni.matches("\\d{8} [A-HJ-NP-TV-Z]")) { //Expresión regular de un DNI, 8 números y solo las letras elegidas
+            return false;
+        }
+
+        //Extraer el número y la letra del DNI
+        String numeroStr = dni.substring(0, 8);
+        char letra = dni.charAt(8);
+
+        //Calcular la letra correspondiente al número del DNI
+        char letraCalculada = calcularLetraDni(Integer.parseInt(numeroStr));
+
+        //Comparar la letra calculada con la letra proporcionada y devolver el resultado de la comparación TRUE/FALSE
+        // el resultado de la comparación TRUE/FALSE
         return letra == letraCalculada;
-       
+
+        /* devuelve TRUE si la letra del DNI y la calculada según la fórmula COINCIDEN 
+        SE PUEDE DEVOLVER ASI EL RESULTADO DE UNA COMPARACIÓN. Se devuelve TRUE si la comparación
+        se cumple y FALSE sino. Es equivalente a poner:
+          if (letra == letraCalculada) {
+              return TRUE;
+           } else {
+              return FALSE;   
+           }
+         */
     }
-    
-    public static char calcularLetraDni (int numero){
-        
-        return 0;
-        
+
+    public static char calcularLetraDni(int numero) {
+        String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+        return letras.charAt(numero % 23);
     }
-    
+
+    /* EJEMPLO DE UTILIZACIÓN validarDNI()
         
-}
+        do{
+            System.out.println("DNI CLIENTE:");
+            dniT=sc.nextLine().toUpperCase();
+        }while (!validarDNI(dniT));
+    /*
+
+     }
