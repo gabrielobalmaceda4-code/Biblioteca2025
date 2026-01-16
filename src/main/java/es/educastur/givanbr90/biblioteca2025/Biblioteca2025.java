@@ -957,7 +957,7 @@ public class Biblioteca2025 {
         }
     }
 
-    //<editor-fold defaultstate="collapsed" desc="Streams">
+    //<editor-fold defaultstate="collapsed" desc="Listados con Streams">
     public static void listadosConStreams() {
         System.out.println("Libros listados desde STREAMS: ");
         libros.stream()//Hacemos un duplicado de la colección de libros a Stream
@@ -971,8 +971,12 @@ public class Biblioteca2025 {
         prestamos.stream()
                 .forEach(p -> System.out.println(p));
 
+        System.out.println("\nLibros de la seccion aventuras:");
+        libros.stream().filter(l -> l.getGenero().equalsIgnoreCase("aventuras"))
+                .forEach(l -> System.out.println(l));
+
         //Listados selectivos (filter) con STREAM, primero hay que hacer el filter antes que el for each para evitar que el programa recorra toda la colección de forma innecesaria
-        System.out.println("\nListado de libros con filtros: ");
+        System.out.println("\nListado de libros con filtros, novela negra o aventuras o del autor jrr tolkien: ");
         libros.stream()
                 .filter(l -> l.getGenero().equalsIgnoreCase("novela negra")//Aplicamos el filtro para solo buscar aquellos que pertenecen al género que buscamos
                 //&& l.getGenero().equalsIgnoreCase("aventuras")En este caso no hay ningún libro que sea de novela negra  "y" aventuras el && pide que se cumplan ambas condiciones, por lo tanto debemos poner un "o"
@@ -1025,15 +1029,15 @@ public class Biblioteca2025 {
         System.out.println("\nListado de Prestamos ordenados por Fecha de prestramo: ");
         prestamos.stream().sorted(Comparator.comparing(Prestamo::getFechaPrest))
                 .forEach(p -> System.out.println(p));
-        
+
         //Ordenar los libros de mayor a menos según los prestamos, debemos hacer un metodo que cuente los prestamos de ese libro como criterio de ordenación
         System.out.println("\nListado de libros ordenados por Número d Préstamos: ");
-        libros.stream().sorted(Comparator.comparing(l->numPrestamosLibro(l.getIsbn())))//El reversed no funciona cuando usamos un método como criterio de ordenación, debemos hacer un casting y modificar lo que recibe el métod que usamos ocmo criterio
-                .forEach(l->System.out.println(l + " Unidades prestadas: " + numPrestamosLibro(l.getIsbn())));
+        libros.stream().sorted(Comparator.comparing(l -> numPrestamosLibro(l.getIsbn())))//El reversed no funciona cuando usamos un método como criterio de ordenación, debemos hacer un casting y modificar lo que recibe el métod que usamos ocmo criterio
+                .forEach(l -> System.out.println(l + " Unidades prestadas: " + numPrestamosLibro(l.getIsbn())));
     }
-    
-    public static int numPrestamosLibro(String isbn){ //Edu lo modifica a una forma más simple para poder usar el reversed en las ordenaciones
-        int cont=0;
+
+    public static int numPrestamosLibro(String isbn) { //Edu lo modifica a una forma más simple para poder usar el reversed en las ordenaciones
+        int cont = 0;
         for (Prestamo p : prestamos) {
             if (p.getLibroPrest().getIsbn().equalsIgnoreCase(isbn)) {
                 cont++;
@@ -1045,7 +1049,7 @@ public class Biblioteca2025 {
             }
         }
         return cont;
-        
+
     }
 
     //</editor-fold>
