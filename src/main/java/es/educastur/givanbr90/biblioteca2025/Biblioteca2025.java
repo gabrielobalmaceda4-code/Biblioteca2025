@@ -91,24 +91,32 @@ public class Biblioteca2025 {
         prestamosHist.add(new Prestamo(libros.get(6), usuarios.get(3), hoy.minusDays(10), hoy));
     }
 
+    /**
+     * Contamos los prestamos del isbn introducido por teclado
+     * Pedimos: isbn
+     * Mostramos:
+     *  posL, variable establecida para llamar al método buscaLibro
+     *  prestAct, variable establecida para contar los préstamos asociados a dicho isbn
+     */
     public static void uno() {
         // EL DÍA 13-1-2026 SE APRENDE A HACER PUSH Y PULL CON EL GITHUB
-        /*
-        Lo importante es saber organizar el if después de cada bucle
-         */
-
-        //Vamos a contar los libros prestados de este usuario, activos, historicos y el total de todos
+        /*Lo importante es saber organizar el if después de cada bucle
+        Vamos a contar los libros prestados de este usuario, activos, historicos y el total de todos*/
         System.out.println("Vamos a buscar un libro por su ISBN introducido por teclado");
         System.out.println("ISBN del libro: ");
-        String isbn = sc.next();
-        int posL = buscaLibro(isbn);
-        if (posL == -1) {
+        String isbn = sc.next(); //Solicitamos el isbn del libro por teclado
+        int posL = buscaLibro(isbn); //Declaramos una variable que llame al método que desarrollamos para buscar los libros
+        
+        if (posL == -1) { 
             System.out.println("Ese ISBN no existe en la Biblioteca");
-        } else {
+        /*Con este if controlamos los errores, como la colección de los libros empieza en 0, al inicalizarlo en -1 este libro no existe dentro de la colección,
+          es decir, si introducimos un isbn que no está dentro de la colección lo va interpretar como -1*/
+        
+        } else { //En el caso de que el libro existe, accedemos a su posición mediante el método de buscaLibro y pedimos que muestre el título de dicha posición encontrada
             System.out.println("Prestamos activos de: " + libros.get(posL).getTitulo());
-            int prestAct = 0;
-            for (Prestamo p : prestamos) {
-                if (p.getLibroPrest().getIsbn().equalsIgnoreCase(isbn)) {
+            int prestAct = 0; //Declaramos un contador para ver cuántos prestamos activos hay con dicho libro
+            for (Prestamo p : prestamos) { //Recorremos la colección de prestamos
+                if (p.getLibroPrest().getIsbn().equalsIgnoreCase(isbn)) { //Comprobamos si el libro corresponde (.equalsIgnoreCase) al isbn que introducimos al principio
                     /*Esto es lo mismo que hizo Edu en la solución, p representa cada préstamo de la colección de prestamos*/
                     System.out.println(p);
                     /*Mostramos los libros de dicha colección*/
@@ -116,7 +124,7 @@ public class Biblioteca2025 {
                     /*Contamos los prestamos de ese ISBN*/
                 }
             }
-            System.out.println(libros.get(posL).getTitulo() + " está prestado en " + prestAct + " prestamos activos ");
+            System.out.println(libros.get(posL).getTitulo() + " está prestado en " + prestAct + " prestamos activos "); //Mostramos el total de prestamos activos de dicho libro
 
             /*System.out.println("\nPrestamos historicos del libro: " + libros.get(posL).getTitulo());
             int prestHist = 0;
@@ -190,9 +198,19 @@ public class Biblioteca2025 {
         System.out.println("");
     }
 
+    /**
+     * Recorremos 3 colecciones para encontrar libros sin préstamos
+     * 
+     * 1-Recorremos la colección de libros y declaramos una variable de contador
+     * 2-Tras recorrer la colección de libros, buscamos los préstamos activos de los libros
+     * si un libro tiene un préstamo activo salimos de los bucles
+     * 3-Si encontramos libros sin préstamos activos pasamos a recorrer la colección de préstamos históricos
+     * paramos de contar si los libros sin préstamos activos fueron prestados en el pasado y salimos del bucle
+     * 4-Mostramos solo aquellos libros que no tienen préstamos activos ni históricos, es decir, no hubo break
+     */
     public static void dos() {
         System.out.println("Vamos a buscar libros que no hayan sido prestados nunca");
-        for (Libro l : libros) {
+        for (Libro l : libros) { //Recorremos la colección de libros y declaramos una variable para contar sus préstamos
             /*
             Corrección
              */
@@ -200,7 +218,7 @@ public class Biblioteca2025 {
             for (Prestamo p : prestamos) {//Miro si hay prestamos activos de cada libro
                 if (p.getLibroPrest().equals(l)) {
                     cont++;
-                    break;//Si encuentro un préstamo paro de contar
+                    break;//Si encuentro un préstamo paro de contar, porque buscamos aquellos libros con 0 préstamos
 
                 }
             }
@@ -208,12 +226,12 @@ public class Biblioteca2025 {
                 for (Prestamo p : prestamosHist) {//Si no tiene prestamos activos pues vemos lo historicos
                     if (p.getLibroPrest().equals(l)) {
                         cont++;
-                        break;
+                        break;//Si el libro ha sido prestado anteriormente salimos del bucle porque queremos que sea 0
                     }
 
                 }
             }
-            if (cont == 0) {//Mostramos solo los libros que no tienen ni prestamos activos ni históricos
+            if (cont == 0) {//Mostramos solo los libros que no tienen prestamos activos ni históricos
                 System.out.println(l);
             }
         }
@@ -227,7 +245,7 @@ public class Biblioteca2025 {
         for (Usuario u : usuarios) {//Voy usuario por usuario y lo vamos contando si tiene un préstamo
             int cont = 0;
             for (Prestamo p : prestamos) {
-                if (p.getUsuarioPrest() == u) {//Demostramos que el usuario tiene prestamos
+                if (p.getUsuarioPrest() == u) {//Demostramos que el usuario tiene prestamos, lo ideal sería pedir DNI y equalsIgnoreCase (u.getDNI())
                     cont++;
                     break;
                 }
@@ -936,6 +954,7 @@ public class Biblioteca2025 {
     }
     //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Listados con fore+tab tradicional">
     public static void listarColecciones() {
         System.out.println("Vamos a mostrar todos los libros de la biblioteca: ");
         for (Libro l : libros) {
@@ -956,6 +975,7 @@ public class Biblioteca2025 {
             System.out.println(p);
         }
     }
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Listados con Streams">
     /**
@@ -974,18 +994,20 @@ public class Biblioteca2025 {
         prestamos.stream()
                 .forEach(p -> System.out.println(p));
 
+        /*.filter nos permite elegir un criterio para organizar el listado del stream, este método el criterio es el género del libro
+        En los listados selectivos (filter) con STREAM, primero debemos declarar el .filter antes que el .forEach para evitar que el programa recorra toda la colección de forma innecesaria
+        de esta manera hacemos que recorra el STREAM buscando los objetos que tienen dicho filter*/
         System.out.println("\nLibros de la seccion aventuras:");
         libros.stream().filter(l -> l.getGenero().equalsIgnoreCase("aventuras"))
                 .forEach(l -> System.out.println(l));
 
-        //Listados selectivos (filter) con STREAM, primero hay que hacer el filter antes que el for each para evitar que el programa recorra toda la colección de forma innecesaria
-        System.out.println("\nListado de libros con filtros, novela negra o aventuras o del autor jrr tolkien: ");
+        System.out.println("\nListado de libros con 3 filtros, novela negra, aventuras o del autor jrr tolkien: ");
         libros.stream()
                 .filter(l -> l.getGenero().equalsIgnoreCase("novela negra")//Aplicamos el filtro para solo buscar aquellos que pertenecen al género que buscamos
-                //&& l.getGenero().equalsIgnoreCase("aventuras")En este caso no hay ningún libro que sea de novela negra  "y" aventuras el && pide que se cumplan ambas condiciones, por lo tanto debemos poner un "o"
+                //&& l.getGenero().equalsIgnoreCase("aventuras")En este caso no hay ningún libro que sea de novela negra  "y"=&& aventuras el && pide que se cumplan ambas condiciones, por lo tanto debemos poner un "o"=||
                 || l.getGenero().equalsIgnoreCase("aventuras")
-                || l.getAutor().equalsIgnoreCase("jrr tolkien"))//Podemos agregar más de un filtro poniendo && = nos muestra ambas condiciones, podemos cambiar la condición con un "o" = || este género o este autor
-                //Para mezclar condiciones debemos encerrar estas condiciones en paréntesis aquellas que queremos que estén asociadas
+                || l.getAutor().equalsIgnoreCase("jrr tolkien"))//Podemos agregar más de un filtro poniendo && = nos muestra ambas condiciones si se cumplen dichas condiciones, podemos cambiar la condición con un "o" = || este género o este autor
+                //Para mezclar condiciones debemos encerrar aquellas que queremos asociar en paréntesis
                 .forEach(l -> System.out.println(l));//Imprime aquellos libros que solo pertenecen al filtro aplicado anteriormente
 
         System.out.println("\nPrestamos fuera de plazo: ");
@@ -1006,7 +1028,7 @@ public class Biblioteca2025 {
 
         System.out.println("\nPrestamos fuera de plazo del usuario: ");
         prestamos.stream().filter(p -> p.getUsuarioPrest().getNombre().equalsIgnoreCase(nombre)
-                && p.getFechaDev().isBefore(LocalDate.now()))//Le agregamos una condición más al primer ejemplo del usuario
+                && p.getFechaDev().isBefore(LocalDate.now()))//Le agregamos una condición más al primer ejemplo del usuario con el &&
                 .forEach(p -> System.out.println(p));
 
         System.out.println("\nPrestamos activos de libros del genero aventuras: ");
@@ -1056,6 +1078,7 @@ public class Biblioteca2025 {
     }
 
     //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Método auxiliar buscaFecha">
     public static int buscaFecha(LocalDate fecha) {
         int pos = -1;
         int i = 0;
@@ -1069,6 +1092,7 @@ public class Biblioteca2025 {
         return pos;
 
     }
+//</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Stock Libro">
     /**
