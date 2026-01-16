@@ -6,10 +6,12 @@ package es.educastur.givanbr90.biblioteca2025;
 import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.directory.ModificationItem;
+import jdk.management.jfr.FlightRecorderMXBean;
 
 /**
  *
@@ -33,15 +35,15 @@ public class Biblioteca2025 {
         menuOpciones();
         //</editor-fold>
         //buscaFecha();
-        listadosConStreams();
-
+        //listadosConStreams();
+        ordenarConStream();
         //<editor-fold defaultstate="collapsed" desc="Examen 12-12">
         //cargaDatosPrueba12();
-        uno();
-        dos();
-        tres();
-        cuatro();
-        cinco();
+        //uno();
+        //dos();
+        //tres();
+        //cuatro();
+        //cinco();
         //</editor-fold>
 
     }
@@ -416,6 +418,7 @@ public class Biblioteca2025 {
             System.out.println("\t\t\t\t3 - GESTION DE PRESTAMOS");
             System.out.println("\t\t\t\t4 - LISTAR COLECCIONES");
             System.out.println("\t\t\t\t5 - LISTAR COLECCIONES CON STREAMS");
+            System.out.println("\t\t\t\t6 - ORDENAR COLECCIONES CON STREAMS");
             System.out.println("\t\t\t\t9 - SALIR");
             System.out.println("\t\t\t\t¿Qué opción quieres ejecurtar?");
 
@@ -440,6 +443,10 @@ public class Biblioteca2025 {
                 }
                 case 5: {
                     listadosConStreams();
+                    break;
+                }
+                case 6: {
+                    ordenarConStream();
                     break;
                 }
 
@@ -951,7 +958,6 @@ public class Biblioteca2025 {
     }
 
     //<editor-fold defaultstate="collapsed" desc="Streams">
-    
     public static void listadosConStreams() {
         System.out.println("Libros listados desde STREAMS: ");
         libros.stream()//Hacemos un duplicado de la colección de libros a Stream
@@ -1009,6 +1015,40 @@ public class Biblioteca2025 {
     }
 //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Ordenaciones con STREAMS">
+    public static void ordenarConStream() {
+        System.out.println("Listado de libros ordenados alfabeticamente por título: ");
+        //Sorted sirve para determinar el criterio de ordenación que queremos, solo se puede elegir un criterio de ordenación, hay que modificarlo en la clase para que libros pueda ser ordenada con implements y override si no hay nada en el paréntesis
+        libros.stream().sorted(Comparator.comparing(Libro::getTitulo)/*.reversed() Lo ordena alreves*/) /*Con esta sintaxis no necesitamos modificar la clase, definimos el atributo para ordenarlo dentro del sorted, también podemos poner el resultado de un método*/
+                .forEach(l -> System.out.println(l));
+
+        System.out.println("\nListado de Prestamos ordenados por Fecha de prestramo: ");
+        prestamos.stream().sorted(Comparator.comparing(Prestamo::getFechaPrest))
+                .forEach(p -> System.out.println(p));
+        
+        //Ordenar los libros de mayor a menos según los prestamos, debemos hacer un metodo que cuente los prestamos de ese libro como criterio de ordenación
+        System.out.println("\nListado de libros ordenados por Número d Préstamos: ");
+        libros.stream().sorted(Comparator.comparing(l->numPrestamosLibro(l.getIsbn())))//El reversed no funciona cuando usamos un método como criterio de ordenación, debemos hacer un casting y modificar lo que recibe el métod que usamos ocmo criterio
+                .forEach(l->System.out.println(l + " Unidades prestadas: " + numPrestamosLibro(l.getIsbn())));
+    }
+    
+    public static int numPrestamosLibro(String isbn){ //Edu lo modifica a una forma más simple para poder usar el reversed en las ordenaciones
+        int cont=0;
+        for (Prestamo p : prestamos) {
+            if (p.getLibroPrest().getIsbn().equalsIgnoreCase(isbn)) {
+                cont++;
+            }
+        }
+        for (Prestamo p : prestamosHist) {
+            if (p.getLibroPrest().getIsbn().equalsIgnoreCase(isbn)) {
+                cont++;
+            }
+        }
+        return cont;
+        
+    }
+
+    //</editor-fold>
     public static int buscaFecha(LocalDate fecha) {
         int pos = -1;
         int i = 0;
@@ -1023,6 +1063,7 @@ public class Biblioteca2025 {
 
     }
 
+    //<editor-fold defaultstate="collapsed" desc="Stock Libro">
     /**
      * Hace tres cosas, decirnos la posición del libro o nos avisa de los throws
      * que pueden aparecer si hay anomalías
@@ -1054,5 +1095,6 @@ public class Biblioteca2025 {
         return pos;
 
     }
+//</editor-fold>
 
 }
