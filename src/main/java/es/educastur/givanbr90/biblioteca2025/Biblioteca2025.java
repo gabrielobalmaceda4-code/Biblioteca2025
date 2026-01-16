@@ -958,6 +958,9 @@ public class Biblioteca2025 {
     }
 
     //<editor-fold defaultstate="collapsed" desc="Listados con Streams">
+    /**
+     * Listar con criterios de ordenación
+     */
     public static void listadosConStreams() {
         System.out.println("Libros listados desde STREAMS: ");
         libros.stream()//Hacemos un duplicado de la colección de libros a Stream
