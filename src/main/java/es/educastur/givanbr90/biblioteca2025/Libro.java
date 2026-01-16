@@ -8,7 +8,7 @@ package es.educastur.givanbr90.biblioteca2025;
  *
  * @author 1dawd17
  */
-public class Libro {
+public class Libro implements Comparable <Libro> { //Modificación para poder ordenar los libros y poder usar sorted, luego agregamos el comparateTo, esta es la forma clásica, debemso especificar que comparamos
     private String isbn;
     private String titulo;
     private String autor;
@@ -67,6 +67,16 @@ public class Libro {
     public String toString() {
         return isbn + " | " + titulo + " | " + autor + " | " + genero + " | ejemplares:" + ejemplares;
         
+    }
+
+    /**
+     *Determinamos el criterio de ordenación
+     * @param l
+     * @return
+     */
+    @Override
+    public int compareTo(Libro l) { //Explicamos de que forma es comprable, le decimos qué atributo es el que usamos para ordenarlo, de la forma clásica debemos crear un Override para cada criterio
+        return this.titulo.compareTo(l.getTitulo());
     }
     
     
