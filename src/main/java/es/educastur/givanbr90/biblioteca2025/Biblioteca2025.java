@@ -371,6 +371,7 @@ public class Biblioteca2025 {
         System.out.println("PRESTAMOS realizados en el mes de NOVIEMBRE:\n");
         for (Prestamo p : prestamos) {//Recorremos préstamos activos 
             if (p.getFechaPrest().getMonthValue() == 11) { //Filtramos dichos préstamos por el mes que necesitamos
+    //También-> if (p.getFechaPrest().getMonth() == Month.NOVEMBER) (pero requiere import java.time.Month;)    
             /*
             - p.getFechaPrest() nos devuelve un LocalDate el cual solo nos interesa el 11               
             - .getMothValue==11 es el LocalDate que queremos que nos devuelva,
