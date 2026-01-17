@@ -237,6 +237,9 @@ public class Biblioteca2025 {
         }
     }
 
+    /**
+     * Listado de los usuarios con préstamos activos
+     */
     public static void tres() {
 
         System.out.print("\n\nVamos a listar usuarios con prestamos activos: " + "\n");//Las variables que vamos a declarar es mejor llamarlas igual que los atributos de la clase para evitar la confusión
@@ -246,12 +249,21 @@ public class Biblioteca2025 {
             int cont = 0;
             for (Prestamo p : prestamos) {
                 if (p.getUsuarioPrest() == u) {//Demostramos que el usuario tiene prestamos, lo ideal sería pedir DNI y equalsIgnoreCase (u.getDNI())
+                    /*
+                    Usamos "==" para comprobar objetos cuandoe stamos 100% seguro de que son el mismo objeto de memoria no si son el mismo usuario
+                    Es mejor comaparar por DNI o usar .equals
+                    
+                    if (p.getUsuarioPrest().getDni().equalsIgnoreCase(u.getDni())) {
+                        cont++;
+                        break;
+                    }
+                    */
                     cont++;
                     break;
                 }
             }
             if (cont > 0) {//Si el contador es mayor que 0, pues el usuario tiene al menos un préstamo, por lo tanto solo imprimimos estos usuaios
-                System.out.println(u.getNombre());
+                System.out.println(u.getNombre()); // Mostramos únicamente los usuarios que tienen al menos un préstamo activo
             }
         }
 
@@ -314,15 +326,31 @@ public class Biblioteca2025 {
          */
         System.out.print("\n\nVamos a listar usuarios con prestamos fuera de plazo: " + "\n");//Las variables que vamos a declarar es mejor llamarlas igual que los atributos de la clase para evitar la confusión
         //Corrección
-        for (Usuario u : usuarios) {//Reviso cada usuario
-            boolean tieneFueraPlazo = false;//Es lo mismo que poner int cont=0;
-            for (Prestamo p : prestamos) {//Reviso solo los prestamos, no los hist
+        for (Usuario u : usuarios) {//Reviso cada usuario para comprobar si tienen préstamos vencidos viendo la lista de prestamos activos
+            boolean tieneFueraPlazo = false;
+            /*Es lo mismo que poner int cont=0;
+              Estamos asumiendo que no tiene prestamos fuera de plazo "false"
+              Si encontramos uno pues es "true"
+            */
+            for (Prestamo p : prestamos) {//Reviso solo los prestamos activos
                 if (p.getUsuarioPrest().equals(u) && p.getFechaDev().isBefore(LocalDate.now())) {//Muestro los prestamos del usuario Y las fechas de devolución
+                /*En este if establecemos las condicones que se deben cumplir para que el boolean sea true
+                1- El pre´stamo que pertence a ese usuario
+                2- La fecha de devolución ya pasó (está antes que hoy)                    
+                */
                     tieneFueraPlazo = true;// o cont++;
                     break;
+                    /*Con una sola condición "p.getFechaDev().isBefore(LocalDate.now())"
+                    sabemos que el usuario debe aparecer en nuestra lista.
+                    Con el break; evitamos seguir recorriendo préstamos, estamos optimizamos el código
+                    */
                 }
             }
             if (tieneFueraPlazo == true) {
+            /*Una vez comprobada la opción true del boolean podemos imprimir dichos usuarios que tienen préstamos fuera de plazo
+            if (tieneFueraPlazo) quedaría mejor esto
+            porque en el if anterior a esta ya estamos declarando las condiciones que hacen al boolean==true     
+            */    
                 System.out.println(u);
             }
         }
@@ -341,12 +369,16 @@ public class Biblioteca2025 {
     public static void cinco() {
         //Corrección
         System.out.println("PRESTAMOS realizados en el mes de NOVIEMBRE:\n");
-        for (Prestamo p : prestamos) {
-            if (p.getFechaPrest().getMonthValue() == 11) {
-                System.out.println(p);
+        for (Prestamo p : prestamos) {//Recorremos préstamos activos 
+            if (p.getFechaPrest().getMonthValue() == 11) { //Filtramos dichos préstamos por el mes que necesitamos
+            /*
+            - p.getFechaPrest() nos devuelve un LocalDate el cual solo nos interesa el 11               
+            - .getMothValue==11 es el LocalDate que queremos que nos devuelva,
+              al ser un entero del 1-12; 11, ya que, es el que se correspode con Noviembre */
+                System.out.println(p);//Imprime los activos de Noviembre
             }
         }
-        for (Prestamo p : prestamosHist) {
+        for (Prestamo p : prestamosHist) { //Recorre los históricos de Noviembre y los imprime
             if (p.getFechaPrest().getMonthValue() == 11) {
                 System.out.println(p);
             }
@@ -376,7 +408,28 @@ public class Biblioteca2025 {
             }
 
             System.out.println("Total de préstamos activos en esa fecha: " + prestAct);
-        }*/
+        }
+        
+        OTRO POSIBLE MÉTODO PARA HACERLO
+        
+    public static void listarPrestamosDeMes(int mes) {
+        for (Prestamo p : prestamos) {
+            if (p.getFechaPrest().getMonthValue() == mes) {
+            System.out.println(p);
+            }
+        }
+        for (Prestamo p : prestamosHist) {
+            if (p.getFechaPrest().getMonthValue() == mes) {
+            System.out.println(p);
+            }
+        }
+    }
+
+    public static void cinco() {
+        System.out.println("PRESTAMOS realizados en el mes de NOVIEMBRE:\n");
+        listarPrestamosDeMes(11);
+    }
+    */
     }
 
     //</editor-fold>
