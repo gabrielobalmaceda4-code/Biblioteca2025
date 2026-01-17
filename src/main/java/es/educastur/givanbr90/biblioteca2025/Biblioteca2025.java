@@ -49,6 +49,7 @@ public class Biblioteca2025 {
     }
 
     //<editor-fold defaultstate="collapsed" desc="Examen 12/12/2025">
+    
     public static void cargaDatosPrueba12() {
         libros.add(new Libro("1-11", "El Hobbit", "JRR Tolkien", "Aventuras", 3));
         libros.add(new Libro("1-22", "El Silmarillon", "JRR Tolkien", "Aventuras", 3));
@@ -92,11 +93,10 @@ public class Biblioteca2025 {
     }
 
     /**
-     * Contamos los prestamos del isbn introducido por teclado
-     * Pedimos: isbn
-     * Mostramos:
-     *  posL, variable establecida para llamar al método buscaLibro
-     *  prestAct, variable establecida para contar los préstamos asociados a dicho isbn
+     * Contamos los prestamos del isbn introducido por teclado Pedimos: isbn
+     * Mostramos: posL, variable establecida para llamar al método buscaLibro
+     * prestAct, variable establecida para contar los préstamos asociados a
+     * dicho isbn
      */
     public static void uno() {
         // EL DÍA 13-1-2026 SE APRENDE A HACER PUSH Y PULL CON EL GITHUB
@@ -106,12 +106,12 @@ public class Biblioteca2025 {
         System.out.println("ISBN del libro: ");
         String isbn = sc.next(); //Solicitamos el isbn del libro por teclado
         int posL = buscaLibro(isbn); //Declaramos una variable que llame al método que desarrollamos para buscar los libros
-        
-        if (posL == -1) { 
+
+        if (posL == -1) {
             System.out.println("Ese ISBN no existe en la Biblioteca");
-        /*Con este if controlamos los errores, como la colección de los libros empieza en 0, al inicalizarlo en -1 este libro no existe dentro de la colección,
+            /*Con este if controlamos los errores, como la colección de los libros empieza en 0, al inicalizarlo en -1 este libro no existe dentro de la colección,
           es decir, si introducimos un isbn que no está dentro de la colección lo va interpretar como -1*/
-        
+
         } else { //En el caso de que el libro existe, accedemos a su posición mediante el método de buscaLibro y pedimos que muestre el título de dicha posición encontrada
             System.out.println("Prestamos activos de: " + libros.get(posL).getTitulo());
             int prestAct = 0; //Declaramos un contador para ver cuántos prestamos activos hay con dicho libro
@@ -200,13 +200,15 @@ public class Biblioteca2025 {
 
     /**
      * Recorremos 3 colecciones para encontrar libros sin préstamos
-     * 
+     *
      * 1-Recorremos la colección de libros y declaramos una variable de contador
-     * 2-Tras recorrer la colección de libros, buscamos los préstamos activos de los libros
-     * si un libro tiene un préstamo activo salimos de los bucles
-     * 3-Si encontramos libros sin préstamos activos pasamos a recorrer la colección de préstamos históricos
-     * paramos de contar si los libros sin préstamos activos fueron prestados en el pasado y salimos del bucle
-     * 4-Mostramos solo aquellos libros que no tienen préstamos activos ni históricos, es decir, no hubo break
+     * 2-Tras recorrer la colección de libros, buscamos los préstamos activos de
+     * los libros si un libro tiene un préstamo activo salimos de los bucles
+     * 3-Si encontramos libros sin préstamos activos pasamos a recorrer la
+     * colección de préstamos históricos paramos de contar si los libros sin
+     * préstamos activos fueron prestados en el pasado y salimos del bucle
+     * 4-Mostramos solo aquellos libros que no tienen préstamos activos ni
+     * históricos, es decir, no hubo break
      */
     public static void dos() {
         System.out.println("Vamos a buscar libros que no hayan sido prestados nunca");
@@ -238,7 +240,15 @@ public class Biblioteca2025 {
     }
 
     /**
-     * Listado de los usuarios con préstamos activos
+     * Lista por pantalla los usuarios que tienen al menos un préstamo activo.
+     *
+     * Recorre la colección de usuarios y, para cada uno de ellos, comprueba si
+     * aparece en la lista de préstamos activos. En cuanto se encuentra un
+     * préstamo asociado al usuario, se muestra por pantalla y se deja de
+     * comprobar el resto de préstamos.
+     *
+     * No se listan usuarios sin préstamos activos ni se repiten usuarios en el
+     * resultado.
      */
     public static void tres() {
 
@@ -257,7 +267,7 @@ public class Biblioteca2025 {
                         cont++;
                         break;
                     }
-                    */
+                     */
                     cont++;
                     break;
                 }
@@ -319,6 +329,18 @@ public class Biblioteca2025 {
          */
     }
 
+    /**
+     * Lista por pantalla los usuarios que tienen al menos un préstamo activo
+     * fuera de plazo.
+     *
+     * Para cada usuario se recorren los préstamos activos y se comprueba si
+     * existe algún préstamo cuya fecha de devolución sea anterior a la fecha
+     * actual. En cuanto se detecta un préstamo fuera de plazo, el usuario se
+     * muestra por pantalla y se deja de comprobar el resto de préstamos.
+     *
+     * No se incluyen usuarios sin préstamos vencidos ni se repiten usuarios en
+     * el listado.
+     */
     public static void cuatro() {
         /* Se podría resolver con un contador (cont) al igual que los ejercicios
             anteriores, pero en este caso utilizamos una variable booleana (true/false).
@@ -331,26 +353,26 @@ public class Biblioteca2025 {
             /*Es lo mismo que poner int cont=0;
               Estamos asumiendo que no tiene prestamos fuera de plazo "false"
               Si encontramos uno pues es "true"
-            */
+             */
             for (Prestamo p : prestamos) {//Reviso solo los prestamos activos
                 if (p.getUsuarioPrest().equals(u) && p.getFechaDev().isBefore(LocalDate.now())) {//Muestro los prestamos del usuario Y las fechas de devolución
-                /*En este if establecemos las condicones que se deben cumplir para que el boolean sea true
+                    /*En este if establecemos las condicones que se deben cumplir para que el boolean sea true
                 1- El pre´stamo que pertence a ese usuario
                 2- La fecha de devolución ya pasó (está antes que hoy)                    
-                */
+                     */
                     tieneFueraPlazo = true;// o cont++;
                     break;
                     /*Con una sola condición "p.getFechaDev().isBefore(LocalDate.now())"
                     sabemos que el usuario debe aparecer en nuestra lista.
                     Con el break; evitamos seguir recorriendo préstamos, estamos optimizamos el código
-                    */
+                     */
                 }
             }
             if (tieneFueraPlazo == true) {
-            /*Una vez comprobada la opción true del boolean podemos imprimir dichos usuarios que tienen préstamos fuera de plazo
+                /*Una vez comprobada la opción true del boolean podemos imprimir dichos usuarios que tienen préstamos fuera de plazo
             if (tieneFueraPlazo) quedaría mejor esto
             porque en el if anterior a esta ya estamos declarando las condiciones que hacen al boolean==true     
-            */    
+                 */
                 System.out.println(u);
             }
         }
@@ -366,13 +388,23 @@ public class Biblioteca2025 {
         System.out.println(usuarios);*/
     }
 
+    /**
+     * Lista por pantalla todos los préstamos realizados en el mes de noviembre.
+     *
+     * Se recorren tanto la colección de préstamos activos como la colección de
+     * préstamos históricos y se muestran aquellos préstamos cuya fecha de
+     * realización corresponde al mes de noviembre.
+     *
+     * El método no distingue entre años y no modifica ninguna colección,
+     * únicamente muestra los resultados por consola.
+     */
     public static void cinco() {
         //Corrección
         System.out.println("PRESTAMOS realizados en el mes de NOVIEMBRE:\n");
         for (Prestamo p : prestamos) {//Recorremos préstamos activos 
             if (p.getFechaPrest().getMonthValue() == 11) { //Filtramos dichos préstamos por el mes que necesitamos
-    //También-> if (p.getFechaPrest().getMonth() == Month.NOVEMBER) (pero requiere import java.time.Month;)    
-            /*
+                //También-> if (p.getFechaPrest().getMonth() == Month.NOVEMBER) (pero requiere import java.time.Month;)    
+                /*
             - p.getFechaPrest() nos devuelve un LocalDate el cual solo nos interesa el 11               
             - .getMothValue==11 es el LocalDate que queremos que nos devuelva,
               al ser un entero del 1-12; 11, ya que, es el que se correspode con Noviembre */
@@ -430,10 +462,11 @@ public class Biblioteca2025 {
         System.out.println("PRESTAMOS realizados en el mes de NOVIEMBRE:\n");
         listarPrestamosDeMes(11);
     }
-    */
+         */
     }
 
     //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="CargaDatos">
     public static void cargaDatos() {
 
@@ -1132,6 +1165,7 @@ public class Biblioteca2025 {
     }
 
     //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Método auxiliar buscaFecha">
     public static int buscaFecha(LocalDate fecha) {
         int pos = -1;
