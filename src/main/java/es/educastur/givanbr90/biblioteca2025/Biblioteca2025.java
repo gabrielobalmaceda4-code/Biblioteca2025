@@ -49,7 +49,6 @@ public class Biblioteca2025 {
     }
 
     //<editor-fold defaultstate="collapsed" desc="Examen 12/12/2025">
-    
     public static void cargaDatosPrueba12() {
         libros.add(new Libro("1-11", "El Hobbit", "JRR Tolkien", "Aventuras", 3));
         libros.add(new Libro("1-22", "El Silmarillon", "JRR Tolkien", "Aventuras", 3));
@@ -466,7 +465,6 @@ public class Biblioteca2025 {
     }
 
     //</editor-fold>
-    
     //<editor-fold defaultstate="collapsed" desc="CargaDatos">
     public static void cargaDatos() {
 
@@ -1066,7 +1064,17 @@ public class Biblioteca2025 {
 
     //<editor-fold defaultstate="collapsed" desc="Listados con Streams">
     /**
-     * Listar con criterios de ordenación
+     * Listar con criterios de ordenación en distintas colecciones
+     *
+     * El método muestra ejemplos de recorrido completo de colecciones mediante
+     * streams, así como listados selectivos aplicando filtros por género,
+     * autor, usuario y estado del préstamo (activo, histórico o fuera de
+     * plazo).
+     *
+     * Se utilizan expresiones lambda junto con los métodos forEach y filter
+     * para sustituir los bucles tradicionales y mejorar la legibilidad del
+     * código. El método no modifica las colecciones, únicamente presenta
+     * información por consola.
      */
     public static void listadosConStreams() {
         System.out.println("Libros listados desde STREAMS: ");
@@ -1132,7 +1140,21 @@ public class Biblioteca2025 {
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Ordenaciones con STREAMS">
+    /**
+     * Muestra distintos listados ordenados utilizando streams y comparadores.
+     *
+     * El método ordena colecciones aplicando criterios de ordenación mediante
+     * el método sorted de la API Stream y la clase Comparator. Se realizan
+     * ordenaciones por atributos simples (título del libro, fecha de préstamo)
+     * y por criterios calculados a partir de métodos auxiliares (número de
+     * préstamos de un libro).
+     *
+     * El método tiene un fin demostrativo del uso de ordenaciones con streams y
+     * no modifica el orden original de las colecciones.
+     */
     public static void ordenarConStream() {
+        // La ordenación se realiza sobre el stream, no sobre la colección original
+
         System.out.println("Listado de libros ordenados alfabeticamente por título: ");
         //Sorted sirve para determinar el criterio de ordenación que queremos, solo se puede elegir un criterio de ordenación, hay que modificarlo en la clase para que libros pueda ser ordenada con implements y override si no hay nada en el paréntesis
         libros.stream().sorted(Comparator.comparing(Libro::getTitulo)/*.reversed() Lo ordena alreves*/) /*Con esta sintaxis no necesitamos modificar la clase, definimos el atributo para ordenarlo dentro del sorted, también podemos poner el resultado de un método*/
@@ -1144,11 +1166,26 @@ public class Biblioteca2025 {
 
         //Ordenar los libros de mayor a menos según los prestamos, debemos hacer un metodo que cuente los prestamos de ese libro como criterio de ordenación
         System.out.println("\nListado de libros ordenados por Número d Préstamos: ");
+        // Se utiliza un método auxiliar como criterio de ordenación->numPrestamosLibro
         libros.stream().sorted(Comparator.comparing(l -> numPrestamosLibro(l.getIsbn())))//El reversed no funciona cuando usamos un método como criterio de ordenación, debemos hacer un casting y modificar lo que recibe el métod que usamos ocmo criterio
                 .forEach(l -> System.out.println(l + " Unidades prestadas: " + numPrestamosLibro(l.getIsbn())));
     }
 
+    /**
+     * Calcula el número total de préstamos asociados a un libro.
+     *
+     * El método cuenta tanto los préstamos activos como los préstamos
+     * históricos de un libro identificado por su ISBN. El valor devuelto se
+     * utiliza como criterio de ordenación en listados con streams.
+     *
+     * @param  isbn ISBN del libro del que se desean contar los préstamos
+     * @return  número total de préstamos (activos + históricos) del libro
+     */
     public static int numPrestamosLibro(String isbn) { //Edu lo modifica a una forma más simple para poder usar el reversed en las ordenaciones
+        /*Este método devuelve un int, no un objeto complejo.
+        Eso permite usarlo directamente en:
+        -Comparator.comparing(l -> numPrestamosLibro(l.getIsbn())) arriba
+        */
         int cont = 0;
         for (Prestamo p : prestamos) {
             if (p.getLibroPrest().getIsbn().equalsIgnoreCase(isbn)) {
@@ -1161,7 +1198,13 @@ public class Biblioteca2025 {
             }
         }
         return cont;
-
+        
+        /*
+        Si queremos ordenarlo al inverso debemos hacer lo siguiente:
+        libros.stream()
+        .sorted(Comparator.comparingInt(l -> numPrestamosLibro(l.getIsbn())).reversed())
+        .forEach(System.out::println);
+        */
     }
 
     //</editor-fold>
